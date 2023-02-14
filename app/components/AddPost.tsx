@@ -14,8 +14,17 @@ const AddPost = () => {
 
     //criar um post
     const { mutate } = useMutation(
-        async (title) => await axios.post('/api/post/addPost', { title })
-    )
+        async (title) => await axios.post('/api/posts/addPost', { title }), 
+        {
+            onError: (error) => {
+            console.log(error)
+        },
+            onSuccess: (data) => {
+                console.log(data)
+                setTitle("")
+                setIsDisable(false)
+            }
+    })
 
     const submitPost = async (e: React.FormEvent) => {
         e.preventDefault();
